@@ -6,7 +6,11 @@ import { mergeJson } from "./utils/merge-json.js";
 // Resolve templates root relative to this file (ESM-compatible)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const TEMPLATES_ROOT = path.resolve(__dirname, "../templates/nextjs");
+// When installed from npm, templates are bundled at ../templates (prepublishOnly copies them).
+// In local monorepo dev, templates live at ../../../templates.
+const _npmTemplates = path.resolve(__dirname, "../templates/nextjs");
+const _devTemplates = path.resolve(__dirname, "../../../templates/nextjs");
+const TEMPLATES_ROOT = fs.existsSync(_npmTemplates) ? _npmTemplates : _devTemplates;
 export async function scaffold(config, targetDir) {
     fs.mkdirSync(targetDir, { recursive: true });
     // 1. Copy base template
