@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build outputs
+packages/cli/dist/
+packages/cli/templates/
+packages/cli/coverage/
+
+# turbo
+.turbo/
+
+# misc
+.DS_Store
+*.pem
+*.log
+
+# env
+.env
+.env*.local
+
+# test artifacts
+test/
+test-template/
