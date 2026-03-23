@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/packages/cli"
+    schedule: { interval: monthly }
+  - package-ecosystem: npm
+    directory: "/templates/nextjs/base"
+    schedule: { interval: monthly }
