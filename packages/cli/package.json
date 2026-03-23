@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/LamHana/landing-page-boilerplate#readme",
   "dependencies": {
-    "@clack/prompts": "^0.9.0",
+    "@clack/prompts": "^1.1.0",
     "kolorist": "^1.8.0",
     "execa": "^9.0.0"
   },
