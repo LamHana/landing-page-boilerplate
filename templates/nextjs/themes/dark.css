@@ -1,0 +1,36 @@
+/* Dark Theme — dark-first, neutral monochrome */
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.12 0.005 250);
+  --foreground: oklch(0.95 0.005 250);
+  --card: oklch(0.18 0.007 250);
+  --card-foreground: oklch(0.95 0.005 250);
+  --popover: oklch(0.18 0.007 250);
+  --popover-foreground: oklch(0.95 0.005 250);
+  --primary: oklch(0.92 0.005 250);
+  --primary-foreground: oklch(0.12 0.005 250);
+  --secondary: oklch(0.22 0.008 250);
+  --secondary-foreground: oklch(0.92 0.005 250);
+  --muted: oklch(0.22 0.008 250);
+  --muted-foreground: oklch(0.6 0.008 250);
+  --accent: oklch(0.28 0.01 250);
+  --accent-foreground: oklch(0.92 0.005 250);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.6 0.01 250);
+  --brand-primary: #e2e8f0;
+  --brand-action: #cbd5e1;
+  --brand-footer-from: #1e293b;
+  --brand-footer-to: #0f172a;
+  --brand-surface: #1e293b;
+  --brand-border: #334155;
+  --brand-gradient-from: #94a3b8;
+  --brand-gradient-to: #e2e8f0;
+}
+
+.dark {
+  /* Dark theme is already dark by default — .dark class mirrors :root */
+  --background: oklch(0.12 0.005 250);
+  --foreground: oklch(0.95 0.005 250);
+}

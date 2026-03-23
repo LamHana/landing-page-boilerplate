@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "features": "Features",
+    "about": "About",
+    "contact": "Contact",
+    "getStarted": "Get started"
+  },
+  "hero": {
+    "headline": "Build faster, ship better",
+    "subtext": "The modern landing page starter kit for your next project.",
+    "cta": "Get started",
+    "ctaSecondary": "Learn more"
+  },
+  "features": {
+    "title": "Everything you need",
+    "subtitle": "Built with the best tools in the ecosystem"
+  },
+  "footer": {
+    "copyright": "© 2025 __PROJECT_NAME__. All rights reserved."
+  }
+}

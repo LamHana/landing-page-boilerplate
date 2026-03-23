@@ -1,0 +1,7 @@
+#!/bin/sh
+# commit-msg: enforce conventional commit format
+# Examples of valid commits:
+#   feat(navbar): add mobile menu
+#   fix(hero): correct CTA button color
+#   chore: update dependencies
+npx --no -- commitlint --edit "$1"

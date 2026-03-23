@@ -1,0 +1,46 @@
+#!/bin/sh
+set -e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  Pre-push quality checks"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# ── Step 1: Next.js build (always runs) ──────────────────
+echo "${GREEN}[1/3] Building Next.js...${NC}"
+npm run build
+echo "${GREEN}✅ Build passed${NC}"
+echo ""
+
+# ── Step 2: Lighthouse CI (skip with SKIP_LIGHTHOUSE=true) ──
+if [ "${SKIP_LIGHTHOUSE}" = "true" ]; then
+  echo "${YELLOW}[2/3] Lighthouse skipped (SKIP_LIGHTHOUSE=true)${NC}"
+else
+  echo "${GREEN}[2/3] Running Lighthouse CI...${NC}"
+  bash ./scripts/lighthouse-check.sh
+  echo "${GREEN}✅ Lighthouse passed${NC}"
+fi
+echo ""
+
+# ── Step 3: Docker build + security scan (opt-in with RUN_SCAN=true) ──
+if [ "${RUN_SCAN}" = "true" ]; then
+  if ! command -v docker > /dev/null 2>&1; then
+    echo "${YELLOW}[3/3] Security scan skipped (Docker not found)${NC}"
+  else
+    echo "${GREEN}[3/3] Running Docker build + security scan...${NC}"
+    FAIL_ON_VULN=false bash ./scripts/build-and-scan.sh
+    echo "${GREEN}✅ Scan completed${NC}"
+  fi
+else
+  echo "${YELLOW}[3/3] Security scan skipped (set RUN_SCAN=true to enable)${NC}"
+fi
+
+echo ""
+echo "${GREEN}✅ All pre-push checks passed. Pushing...${NC}"
+echo ""

@@ -1,0 +1,58 @@
+/* Ocean Theme — sky blue + cyan */
+:root {
+  --radius: 0.5rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0.01 220);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.01 220);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.01 220);
+  --primary: oklch(0.55 0.2 225); /* sky blue */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.04 200);
+  --secondary-foreground: oklch(0.15 0.01 220);
+  --muted: oklch(0.95 0.04 200);
+  --muted-foreground: oklch(0.5 0.05 220);
+  --accent: oklch(0.85 0.1 195); /* cyan tint */
+  --accent-foreground: oklch(0.15 0.01 220);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.06 210);
+  --input: oklch(0.88 0.06 210);
+  --ring: oklch(0.65 0.15 225);
+  --brand-primary: #0ea5e9;
+  --brand-action: #0284c7;
+  --brand-footer-from: #0369a1;
+  --brand-footer-to: #0c4a6e;
+  --brand-surface: #e0f2fe;
+  --brand-border: #bae6fd;
+  --brand-gradient-from: #38bdf8;
+  --brand-gradient-to: #06b6d4;
+}
+
+.dark {
+  --background: oklch(0.1 0.02 220);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.15 0.02 220);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.15 0.02 220);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.7 0.18 225);
+  --primary-foreground: oklch(0.1 0.02 220);
+  --secondary: oklch(0.2 0.03 220);
+  --muted: oklch(0.2 0.03 220);
+  --muted-foreground: oklch(0.6 0.05 220);
+  --accent: oklch(0.2 0.03 220);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.6 0.1 225);
+  --brand-primary: #38bdf8;
+  --brand-action: #0ea5e9;
+  --brand-footer-from: #075985;
+  --brand-footer-to: #0c4a6e;
+  --brand-surface: #0c2d3f;
+  --brand-border: #164e63;
+  --brand-gradient-from: #38bdf8;
+  --brand-gradient-to: #67e8f9;
+}

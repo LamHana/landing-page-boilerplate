@@ -1,0 +1,75 @@
+/* Pila Theme — white + deep blue brand */
+/* Edit this file to rebrand your site */
+
+:root {
+  --radius: 0.625rem;
+
+  /* Surfaces */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.147 0.004 49.25);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.147 0.004 49.25);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.147 0.004 49.25);
+
+  /* Brand primary — deep blue #1849a9 */
+  --primary: oklch(0.45 0.18 250);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary — very light blue tint #f2fffe */
+  --secondary: oklch(0.97 0.015 210);
+  --secondary-foreground: oklch(0.216 0.006 56.043);
+
+  /* Muted */
+  --muted: oklch(0.97 0.015 210);
+  --muted-foreground: oklch(0.553 0.013 58.071);
+
+  /* Accent — light blue #e0f2ff */
+  --accent: oklch(0.95 0.03 220);
+  --accent-foreground: oklch(0.45 0.18 250);
+
+  /* System */
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.04 220); /* ~#d1e9ff */
+  --input: oklch(0.88 0.04 220);
+  --ring: oklch(0.65 0.12 230); /* ~#84caff */
+
+  /* Brand-specific tokens */
+  --brand-primary: #1849a9;
+  --brand-action: #1570ef;
+  --brand-footer-from: #1764eb;
+  --brand-footer-to: #002d7b;
+  --brand-surface: #daf8ff;
+  --brand-border: #d1e9ff;
+  --brand-gradient-from: #327eff;
+  --brand-gradient-to: #ffffff;
+}
+
+.dark {
+  --background: oklch(0.1 0.02 250);
+  --foreground: oklch(0.985 0.001 106.423);
+  --card: oklch(0.15 0.03 250);
+  --card-foreground: oklch(0.985 0.001 106.423);
+  --popover: oklch(0.15 0.03 250);
+  --popover-foreground: oklch(0.985 0.001 106.423);
+  --primary: oklch(0.65 0.16 250);
+  --primary-foreground: oklch(0.1 0.02 250);
+  --secondary: oklch(0.2 0.03 250);
+  --secondary-foreground: oklch(0.985 0.001 106.423);
+  --muted: oklch(0.2 0.03 250);
+  --muted-foreground: oklch(0.6 0.06 250);
+  --accent: oklch(0.2 0.03 250);
+  --accent-foreground: oklch(0.985 0.001 106.423);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.553 0.013 58.071);
+  --brand-primary: #6aaeff;
+  --brand-action: #3b82f6;
+  --brand-footer-from: #1e3a8a;
+  --brand-footer-to: #0f172a;
+  --brand-surface: #1e293b;
+  --brand-border: #334155;
+  --brand-gradient-from: #6aaeff;
+  --brand-gradient-to: #dbeafe;
+}

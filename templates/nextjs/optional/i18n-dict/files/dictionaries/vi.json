@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "features": "Tính năng",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ",
+    "getStarted": "Bắt đầu"
+  },
+  "hero": {
+    "headline": "Xây dựng nhanh hơn, ra mắt tốt hơn",
+    "subtext": "Bộ khởi đầu trang đích hiện đại cho dự án tiếp theo của bạn.",
+    "cta": "Bắt đầu",
+    "ctaSecondary": "Tìm hiểu thêm"
+  },
+  "features": {
+    "title": "Mọi thứ bạn cần",
+    "subtitle": "Được xây dựng với các công cụ tốt nhất"
+  },
+  "footer": {
+    "copyright": "© 2025 __PROJECT_NAME__. Bảo lưu mọi quyền."
+  }
+}
