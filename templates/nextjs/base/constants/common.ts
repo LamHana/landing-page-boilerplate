@@ -4,6 +4,7 @@ export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yourdomain.
 export const NAV_LINKS = [
   { label: "Features", href: "#features" },
   // __NAV_LINK_ABOUT__
+  // __NAV_LINK_BLOG__
   // __NAV_LINK_CONTACT__
 ] as const;
 

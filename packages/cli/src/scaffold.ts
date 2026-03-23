@@ -8,7 +8,7 @@ import type { UserConfig } from "./prompts.js";
 // Resolve templates root relative to this file (ESM-compatible)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const TEMPLATES_ROOT = path.resolve(__dirname, "../../../templates/nextjs");
+const TEMPLATES_ROOT = path.resolve(__dirname, "../templates/nextjs");
 
 export async function scaffold(config: UserConfig, targetDir: string) {
   fs.mkdirSync(targetDir, { recursive: true });
@@ -17,13 +17,16 @@ export async function scaffold(config: UserConfig, targetDir: string) {
   await copyDir(path.join(TEMPLATES_ROOT, "base"), targetDir);
 
   // 2. Build list of optional features to apply
-  // i18n/state/data features run first so their files exist before section injects run
+  // ORDERING MATTERS: i18n-dict must run before any section inject that targets
+  // app/[lang]/page.tsx — that file is created by i18n-dict, so sections injecting
+  // into it must come after. Same logic applies to zustand/tanstack-query providers.
   const optionals: string[] = [];
   if (config.i18n === "dict") optionals.push("i18n-dict");
   if (config.stateManagement === "zustand") optionals.push("zustand");
   if (config.dataFetching === "tanstack-query") optionals.push("tanstack-query");
-  // Default sections (hero + features + footer are in base; about is always injected)
+  // Sections run after i18n/state/data so their inject targets already exist
   optionals.push("sections/about");
+  if (config.blog) optionals.push("sections/blog");
   if (config.docker) optionals.push("docker");
 
   // 3. Apply each optional feature (files + inject markers)

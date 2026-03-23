@@ -44,6 +44,9 @@ export async function runPrompts() {
     });
     if (isCancel(dataFetching))
         return null;
+    const blog = await confirm({ message: "Include Blog section?" });
+    if (isCancel(blog))
+        return null;
     const docker = await confirm({ message: "Include Docker setup? (for VPS deploy)" });
     if (isCancel(docker))
         return null;
@@ -53,6 +56,7 @@ export async function runPrompts() {
         i18n: i18n,
         stateManagement: stateManagement,
         dataFetching: dataFetching,
+        blog: Boolean(blog),
         docker: Boolean(docker),
     };
 }
