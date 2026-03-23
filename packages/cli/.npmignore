@@ -1,0 +1,6 @@
+src/
+__tests__/
+coverage/
+*.test.ts
+tsconfig.json
+jest.config.*

@@ -1,18 +1,37 @@
 {
   "name": "create-landing-app",
   "version": "0.1.0",
-  "description": "Create a production-ready Next.js landing page",
+  "description": "Create a production-ready Next.js landing page with one command",
   "type": "module",
   "bin": {
     "create-landing-app": "./dist/index.js"
   },
-  "files": ["dist", "../../templates"],
+  "files": [
+    "dist",
+    "templates"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch",
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "yarn build && cp -r ../../templates ./templates",
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
+  "keywords": [
+    "nextjs",
+    "landing-page",
+    "boilerplate",
+    "scaffold",
+    "create-app",
+    "tailwindcss",
+    "typescript",
+    "starter"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LamHana/landing-page-boilerplate"
+  },
+  "homepage": "https://github.com/LamHana/landing-page-boilerplate#readme",
   "dependencies": {
     "@clack/prompts": "^0.9.0",
     "kolorist": "^1.8.0",
