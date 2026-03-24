@@ -6,7 +6,9 @@
       "Bash(git add .claude/ .github/ .turbo/ LICENSE README.md blog/ docs/ packages/ plans/ templates/ turbo.json package.json yarn.lock)",
       "Bash(awk 'END {print \"\"FILES:\"\"NR}')",
       "Bash(git reset)",
-      "Bash(git add .claude/ .github/ LICENSE README.md blog/ docs/ packages/ plans/ templates/ turbo.json package.json yarn.lock)"
+      "Bash(git add .claude/ .github/ LICENSE README.md blog/ docs/ packages/ plans/ templates/ turbo.json package.json yarn.lock)",
+      "WebSearch",
+      "Bash(git add -A)"
     ]
   }
 }

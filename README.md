@@ -1,6 +1,6 @@
 # create-landing-app
 
-A CLI scaffolding tool that generates production-ready Next.js 15 landing pages with built-in quality checks, optional features, and deployment configuration — in seconds.
+A CLI scaffolding tool that generates production-ready Next.js 16 landing pages with built-in quality checks, optional features, and deployment configuration — in seconds.
 
 ---
 
@@ -38,7 +38,7 @@ The CLI will scaffold your project, apply selected features, and run install aut
 
 | Category | Details |
 |---|---|
-| Framework | Next.js 15.3 (App Router, Turbopack) |
+| Framework | Next.js 16.2 (App Router, Turbopack) |
 | Styling | Tailwind CSS 4 + CSS Variables |
 | UI Components | Radix UI + shadcn/ui pattern |
 | Animation | Motion (Framer Motion v12) |
@@ -210,7 +210,7 @@ The Docker image uses `node .next/standalone/server.js` — no `next start` need
 
 | | |
 |---|---|
-| [Next.js 15](https://nextjs.org) | React framework |
+| [Next.js 16](https://nextjs.org) | React framework |
 | [Tailwind CSS 4](https://tailwindcss.com) | Utility-first CSS |
 | [Radix UI](https://radix-ui.com) | Accessible primitives |
 | [Motion](https://motion.dev) | Animations |
