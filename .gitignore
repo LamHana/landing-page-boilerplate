@@ -21,3 +21,7 @@ packages/cli/coverage/
 # test artifacts
 test/
 test-template/
+
+# local plans and upgrade notes
+plans/
+upgrade/
