@@ -18,6 +18,8 @@ const eslintConfig = [
       "@typescript-eslint/no-explicit-any": "warn",
       // React hooks rules
       "react-hooks/exhaustive-deps": "warn",
+      // Allow raw <img> elements — Next.js Image optimization is opt-in
+      "@next/next/no-img-element": "off",
     },
   },
 ];
