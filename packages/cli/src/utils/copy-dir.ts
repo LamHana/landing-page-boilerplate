@@ -13,8 +13,11 @@ export async function copyDir(src: string, dest: string, overwrite = false) {
     if (entry.isDirectory()) {
       await copyDir(srcPath, destPath, overwrite);
     } else {
-      if (overwrite || !fs.existsSync(destPath)) {
-        fs.copyFileSync(srcPath, destPath);
+      // npm strips .gitignore from published packages; store as _gitignore and restore on copy
+      const destName = entry.name === "_gitignore" ? ".gitignore" : entry.name;
+      const destFile = path.join(dest, destName);
+      if (overwrite || !fs.existsSync(destFile)) {
+        fs.copyFileSync(srcPath, destFile);
       }
     }
   }

@@ -2,6 +2,9 @@ import { execa } from "execa";
 import { spinner } from "@clack/prompts";
 
 export async function install(pm: string, cwd: string) {
+  // git init is required before install so husky's prepare script can set up hooks
+  await execa("git", ["init"], { cwd });
+
   const s = spinner();
   s.start(`Installing dependencies with ${pm}...`);
   try {
