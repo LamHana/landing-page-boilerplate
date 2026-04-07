@@ -31,6 +31,7 @@ export async function scaffold(config: UserConfig, targetDir: string) {
   // Sections run after i18n/state/data so their inject targets already exist
   optionals.push("sections/about");
   if (config.blog) optionals.push("sections/blog");
+  if (config.contact) optionals.push("sections/contact");
   if (config.docker) optionals.push("docker");
 
   // 3. Apply each optional feature (files + inject markers)
