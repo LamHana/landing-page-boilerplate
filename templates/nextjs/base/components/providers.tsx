@@ -2,6 +2,7 @@
 // __PROVIDERS_IMPORT__
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+  // __PROVIDERS_INIT__
   return (
     <>
       {/* __PROVIDERS_WRAP_START__ */}
