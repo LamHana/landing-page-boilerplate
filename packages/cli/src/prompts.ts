@@ -1,5 +1,5 @@
 import {
-  text, select, confirm, isCancel
+  text, confirm, isCancel
 } from "@clack/prompts";
 
 export interface UserConfig {
@@ -20,16 +20,6 @@ export async function runPrompts(): Promise<UserConfig | null> {
   });
   if (isCancel(projectName)) return null;
 
-  const packageManager = await select({
-    message: "Package manager?",
-    options: [
-      { value: "pnpm", label: "pnpm" },
-      { value: "bun", label: "bun" },
-      { value: "yarn", label: "yarn" },
-    ],
-  });
-  if (isCancel(packageManager)) return null;
-
   const blog = await confirm({ message: "Include Blog section?" });
   if (isCancel(blog)) return null;
 
@@ -38,7 +28,7 @@ export async function runPrompts(): Promise<UserConfig | null> {
 
   return {
     projectName: String(projectName).trim(),
-    packageManager: packageManager as UserConfig["packageManager"],
+    packageManager: "pnpm",
     i18n: "dict",
     stateManagement: "zustand",
     dataFetching: "tanstack-query",
