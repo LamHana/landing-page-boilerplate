@@ -14,13 +14,11 @@ type BlogPost = {
 
 // Replace with your CMS/API data
 const BLOG_POSTS: BlogPost[] = [
-  { slug: "post-1", title: "Getting started with our platform", description: "Learn how to set up your account and launch your first project in minutes.", date: "2024-01-15", category: "Product" },
-  { slug: "post-2", title: "Best practices for modern web apps", description: "A guide to building scalable, maintainable applications.", date: "2024-02-01", category: "Engineering" },
-  { slug: "post-3", title: "How we scaled to 10k users", description: "A behind-the-scenes look at the challenges and solutions.", date: "2024-02-20", category: "Growth" },
-  { slug: "post-4", title: "Designing for accessibility", description: "Why inclusive design benefits everyone and how to do it.", date: "2024-03-05", category: "Design" },
-  { slug: "post-5", title: "Our open-source journey", description: "What we learned shipping our first open-source library.", date: "2024-03-18", category: "Engineering" },
-  { slug: "post-6", title: "The future of edge computing", description: "How edge functions are changing how we think about latency.", date: "2024-04-01", category: "Product" },
-  { slug: "post-7", title: "Team rituals that actually work", description: "Async-first habits that helped our remote team stay aligned.", date: "2024-04-10", category: "Culture" },
+  { slug: "introduction-to-blockchain-technology", title: "Introduction to Blockchain Technology", description: "Learn the fundamental concepts of blockchain and its real-world applications.", date: "2026-03-15", category: "Technology", thumbnail: "https://placehold.co/800x500/1a56db/ffffff?text=Blog+1" },
+  { slug: "smart-contracts-explained", title: "Smart Contracts Explained", description: "Discover how smart contracts work and why they matter.", date: "2026-03-10", category: "Technology", thumbnail: "https://placehold.co/800x500/1e429f/ffffff?text=Blog+2" },
+  { slug: "our-platform-v2-launch", title: "Platform v2.0 Launch", description: "We are excited to announce the launch of version 2.0 with many new features.", date: "2026-03-05", category: "Product", thumbnail: "https://placehold.co/800x500/155e75/ffffff?text=Blog+3" },
+  { slug: "industry-partnership-announcement", title: "Strategic Partnership Announcement", description: "We have signed a strategic partnership agreement with leading industry partners.", date: "2026-02-28", category: "News", thumbnail: "https://placehold.co/800x500/14532d/ffffff?text=Blog+4" },
+  { slug: "decentralized-identity-future", title: "The Future of Decentralized Identity", description: "How DID is transforming the way we manage digital identity.", date: "2026-02-20", category: "Technology", thumbnail: "https://placehold.co/800x500/4c1d95/ffffff?text=Blog+5" },
 ];
 
 function formatDate(date: string) {
