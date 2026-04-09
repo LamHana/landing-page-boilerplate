@@ -10,7 +10,6 @@ export interface UserConfig {
   dataFetching: "none" | "tanstack-query";
   blog: boolean;
   contact: boolean;
-  docker: boolean;
 }
 
 export async function runPrompts(): Promise<UserConfig | null> {
@@ -27,9 +26,6 @@ export async function runPrompts(): Promise<UserConfig | null> {
   const contact = await confirm({ message: "Include Contact section? (form + API route)" });
   if (isCancel(contact)) return null;
 
-  const docker = await confirm({ message: "Include Docker setup? (for VPS deploy)" });
-  if (isCancel(docker)) return null;
-
   return {
     projectName: String(projectName).trim(),
     packageManager: "pnpm",
@@ -38,6 +34,5 @@ export async function runPrompts(): Promise<UserConfig | null> {
     dataFetching: "tanstack-query",
     blog: Boolean(blog),
     contact: Boolean(contact),
-    docker: Boolean(docker),
   };
 }

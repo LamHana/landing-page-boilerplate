@@ -32,7 +32,6 @@ export async function scaffold(config: UserConfig, targetDir: string) {
   optionals.push("sections/about");
   if (config.blog) optionals.push("sections/blog");
   if (config.contact) optionals.push("sections/contact");
-  if (config.docker) optionals.push("docker");
 
   // 3. Apply each optional feature (files + inject markers)
   for (const opt of optionals) {
