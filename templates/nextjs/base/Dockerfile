@@ -2,12 +2,12 @@
 FROM node:20-alpine AS deps
 RUN corepack enable
 WORKDIR /app
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lock* bun.lockb* ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
   elif [ -f pnpm-lock.yaml ]; then pnpm i --frozen-lockfile; \
-  elif [ -f bun.lock ] || [ -f bun.lockb ]; then npm i -g bun && bun install --frozen-lockfile; \
+  elif [ -f bun.lockb ]; then bun install --frozen-lockfile; \
   else echo "No lockfile found." && exit 1; \
   fi
 
@@ -16,13 +16,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN \
-  if [ -f yarn.lock ]; then yarn build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then pnpm run build; \
-  elif [ -f bun.lock ] || [ -f bun.lockb ]; then npm i -g bun && bun run build; \
-  else npm run build; \
-  fi
+RUN yarn build
 
 # Stage 3: Production runner (standalone output)
 FROM node:20-alpine AS runner
