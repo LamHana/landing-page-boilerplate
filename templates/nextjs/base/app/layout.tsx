@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "@/components/providers";
 import { createMetadata } from "@/lib/metadata";
@@ -18,13 +17,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Providers>
-            {/* __PROVIDERS_WRAP_START__ */}
-            {children}
-            {/* __PROVIDERS_WRAP_END__ */}
-          </Providers>
-        </ThemeProvider>
+        <Providers>
+          {/* __PROVIDERS_WRAP_START__ */}
+          {children}
+          {/* __PROVIDERS_WRAP_END__ */}
+        </Providers>
         <Toaster />
       </body>
     </html>
