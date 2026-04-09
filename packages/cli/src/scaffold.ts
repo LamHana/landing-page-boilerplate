@@ -32,6 +32,9 @@ export async function scaffold(config: UserConfig, targetDir: string) {
   optionals.push("sections/about");
   if (config.blog) optionals.push("sections/blog");
   if (config.contact) optionals.push("sections/contact");
+  // Optional UI/tracking features — run after sections so layout markers are intact
+  if (config.darkMode) optionals.push("dark-mode");
+  if (config.analytics) optionals.push("analytics");
 
   // 3. Apply each optional feature (files + inject markers)
   for (const opt of optionals) {

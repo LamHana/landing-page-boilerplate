@@ -10,6 +10,8 @@ export interface UserConfig {
   dataFetching: "none" | "tanstack-query";
   blog: boolean;
   contact: boolean;
+  darkMode: boolean;
+  analytics: boolean;
 }
 
 export async function runPrompts(): Promise<UserConfig | null> {
@@ -26,6 +28,12 @@ export async function runPrompts(): Promise<UserConfig | null> {
   const contact = await confirm({ message: "Include Contact section? (form + API route)" });
   if (isCancel(contact)) return null;
 
+  const darkMode = await confirm({ message: "Enable dark mode toggle?" });
+  if (isCancel(darkMode)) return null;
+
+  const analytics = await confirm({ message: "Include Analytics? (GTM + GA via env vars)" });
+  if (isCancel(analytics)) return null;
+
   return {
     projectName: String(projectName).trim(),
     packageManager: "pnpm",
@@ -34,5 +42,7 @@ export async function runPrompts(): Promise<UserConfig | null> {
     dataFetching: "tanstack-query",
     blog: Boolean(blog),
     contact: Boolean(contact),
+    darkMode: Boolean(darkMode),
+    analytics: Boolean(analytics),
   };
 }
