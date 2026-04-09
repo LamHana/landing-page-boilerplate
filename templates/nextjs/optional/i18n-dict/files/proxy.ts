@@ -14,12 +14,18 @@ function getLocale(request: NextRequest): string {
   return matchLocale(languages, [...i18n.locales], i18n.defaultLocale);
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const pathnameHasLocale = i18n.locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
-  if (pathnameHasLocale) return;
+  if (pathnameHasLocale) {
+    // Forward detected locale to the root layout via response header
+    const locale = pathname.split("/")[1];
+    const response = NextResponse.next();
+    response.headers.set("x-locale", locale);
+    return response;
+  }
 
   const locale = getLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
