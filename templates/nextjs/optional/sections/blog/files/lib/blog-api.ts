@@ -8,6 +8,16 @@ export type BlogPost = {
   content?: string; // HTML string — sanitized before render
 };
 
+export type BlogListResult = {
+  posts: BlogPost[];
+  total: number;
+  totalPages: number;
+};
+
+// External blog API — set BLOG_API_URL in .env to use a real data source.
+// When unset, falls back to built-in mock data.
+const BLOG_API_URL = process.env.BLOG_API_URL;
+
 // Mock data — replace with your real data source
 const MOCK_BLOG_POSTS: BlogPost[] = [
   {
@@ -57,36 +67,83 @@ const MOCK_BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-/**
- * Fetch all blog posts.
- *
- * To connect a real API, replace the return statement:
- *   const res = await fetch("https://your-api.com/posts", { next: { revalidate: 60 } });
- *   return res.json();
- */
-export async function getBlogPosts(): Promise<BlogPost[]> {
-  return MOCK_BLOG_POSTS;
+/** Fetch posts filtered by category — used by /api/blogs route for client-side TanStack Query. */
+export async function getBlogPostsByCategory({
+  category,
+  page = 1,
+  pageSize = 9999,
+}: {
+  category: string;
+  page?: number;
+  pageSize?: number;
+}): Promise<BlogPost[]> {
+  if (BLOG_API_URL) {
+    const params = new URLSearchParams({ page: String(page), pageSize: String(pageSize) });
+    if (category !== "all") params.set("category", category);
+    const res = await fetch(`${BLOG_API_URL}/posts?${params}`, { next: { revalidate: 60 } });
+    return res.json();
+  }
+  const filtered = category !== "all" ? MOCK_BLOG_POSTS.filter((p) => p.category === category) : MOCK_BLOG_POSTS;
+  return filtered.slice((page - 1) * pageSize, page * pageSize);
 }
 
-/**
- * Fetch a single blog post by slug.
- *
- * To connect a real API:
- *   const res = await fetch(`https://your-api.com/posts/${slug}`, { next: { revalidate: 60 } });
- *   if (!res.ok) return null;
- *   return res.json();
- */
+/** Fetch all blog posts (latest N for homepage section). */
+export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
+  if (BLOG_API_URL) {
+    const url = limit ? `${BLOG_API_URL}/posts?limit=${limit}` : `${BLOG_API_URL}/posts`;
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    return res.json();
+  }
+  return limit ? MOCK_BLOG_POSTS.slice(0, limit) : MOCK_BLOG_POSTS;
+}
+
+/** Fetch paginated + filtered blog posts for the blog list page. */
+export async function getBlogPostsPaginated({
+  page = 1,
+  pageSize = 6,
+  category,
+}: {
+  page?: number;
+  pageSize?: number;
+  category?: string;
+}): Promise<BlogListResult> {
+  if (BLOG_API_URL) {
+    const params = new URLSearchParams({ page: String(page), pageSize: String(pageSize) });
+    if (category) params.set("category", category);
+    const res = await fetch(`${BLOG_API_URL}/posts?${params}`, { next: { revalidate: 60 } });
+    return res.json();
+  }
+
+  const filtered = category ? MOCK_BLOG_POSTS.filter((p) => p.category === category) : MOCK_BLOG_POSTS;
+  const total = filtered.length;
+  const posts = filtered.slice((page - 1) * pageSize, page * pageSize);
+  return { posts, total, totalPages: Math.ceil(total / pageSize) };
+}
+
+/** Fetch all unique categories. */
+export async function getBlogCategories(): Promise<string[]> {
+  if (BLOG_API_URL) {
+    const res = await fetch(`${BLOG_API_URL}/categories`, { next: { revalidate: 3600 } });
+    return res.json();
+  }
+  return [...new Set(MOCK_BLOG_POSTS.map((p) => p.category))];
+}
+
+/** Fetch a single blog post by slug. */
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  if (BLOG_API_URL) {
+    const res = await fetch(`${BLOG_API_URL}/posts/${slug}`, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    return res.json();
+  }
   return MOCK_BLOG_POSTS.find((p) => p.slug === slug) ?? null;
 }
 
-/**
- * Fetch related posts (same category, excluding current slug).
- *
- * To connect a real API:
- *   const res = await fetch(`https://your-api.com/posts?category=${category}&exclude=${excludeSlug}`);
- *   return res.json();
- */
+/** Fetch related posts (same category, excluding current slug). */
 export async function getRelatedPosts(category: string, excludeSlug: string): Promise<BlogPost[]> {
+  if (BLOG_API_URL) {
+    const res = await fetch(`${BLOG_API_URL}/posts?category=${category}&exclude=${excludeSlug}`);
+    return res.json();
+  }
   return MOCK_BLOG_POSTS.filter((p) => p.category === category && p.slug !== excludeSlug);
 }

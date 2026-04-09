@@ -9,11 +9,8 @@ const ALLOWED_TAGS = [
   "table", "thead", "tbody", "tr", "th", "td",
 ];
 
-// Allowlist attributes per tag
-const ALLOWED_ATTR = {
-  a: ["href", "title", "target", "rel"],
-  img: ["src", "alt", "width", "height", "loading"],
-};
+// Allowlist of permitted HTML attributes
+const ALLOWED_ATTR = ["href", "title", "target", "rel", "src", "alt", "width", "height", "loading"];
 
 /**
  * Sanitize raw HTML from the API before rendering with dangerouslySetInnerHTML.
@@ -24,5 +21,5 @@ export function sanitizeBlogContent(html: string): string {
     ALLOWED_TAGS,
     ALLOWED_ATTR,
     FORCE_BODY: true,
-  } as Parameters<typeof DOMPurify.sanitize>[1]);
+  });
 }

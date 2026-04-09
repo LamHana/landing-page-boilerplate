@@ -38,13 +38,13 @@ function BlogViewDesktop({ posts }: { posts: BlogPost[] }) {
       <div className="flex justify-between gap-[29px] max-lg:gap-5">
         {/* Featured post */}
         <div className={`flex flex-col gap-2 ${rest.length === 0 ? "w-full" : "w-1/2"}`}>
-          <Link href={`/blog/${featured.slug}`} className={`w-full ${rest.length === 0 ? "h-[500px]" : "h-[320px]"}`}>
+          <Link href={`/blogs/detail/${featured.slug}`} className={`w-full ${rest.length === 0 ? "h-[500px]" : "h-[320px]"}`}>
             <Thumbnail src={featured.thumbnail} className="rounded-[16px]" />
           </Link>
           <div className="mt-1">
             <CategoryBadge label={featured.category} />
           </div>
-          <Link href={`/blog/${featured.slug}`} className="line-clamp-2 text-xl font-semibold leading-[24px] text-primary hover:underline">
+          <Link href={`/blogs/detail/${featured.slug}`} className="line-clamp-2 text-xl font-semibold leading-[24px] text-primary hover:underline">
             {featured.title}
           </Link>
           <time dateTime={featured.date} className="text-sm leading-5 text-primary">
@@ -57,7 +57,7 @@ function BlogViewDesktop({ posts }: { posts: BlogPost[] }) {
         {rest.length > 0 && (
           <div className="flex w-1/2 flex-col gap-[30px]">
             {rest.slice(0, 3).map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="flex gap-[30px] max-xl:gap-6 max-lg:gap-4">
+              <Link key={post.slug} href={`/blogs/detail/${post.slug}`} className="flex gap-[30px] max-xl:gap-6 max-lg:gap-4">
                 <div className="h-[147px] w-[191px] flex-shrink-0 max-lg:h-[130px] max-lg:w-[169px]">
                   <Thumbnail src={post.thumbnail} className="rounded-[10px]" />
                 </div>
@@ -82,7 +82,7 @@ function BlogViewDesktop({ posts }: { posts: BlogPost[] }) {
           <span className="text-2xl font-semibold leading-8 text-primary">Related posts</span>
           <div className="grid grid-cols-4 gap-8">
             {posts.slice(4).map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="flex flex-col gap-[30px]">
+              <Link key={post.slug} href={`/blogs/detail/${post.slug}`} className="flex flex-col gap-[30px]">
                 <div className="h-[220px] w-full max-lg:h-[130px]">
                   <Thumbnail src={post.thumbnail} alt={post.title} className="rounded-[16px]" />
                 </div>
@@ -116,13 +116,13 @@ function BlogViewMobile({ posts }: { posts: BlogPost[] }) {
       className="flex flex-col gap-6 pb-20"
     >
       <div className="flex flex-col gap-2">
-        <Link href={`/blog/${featured.slug}`} className="h-[230px] w-full">
+        <Link href={`/blogs/detail/${featured.slug}`} className="h-[230px] w-full">
           <Thumbnail src={featured.thumbnail} className="rounded-[16px]" />
         </Link>
         <div className="mt-1">
           <CategoryBadge label={featured.category} />
         </div>
-        <Link href={`/blog/${featured.slug}`} className="text-xl font-semibold leading-[30px] text-primary hover:underline max-lg:text-lg">
+        <Link href={`/blogs/detail/${featured.slug}`} className="text-xl font-semibold leading-[30px] text-primary hover:underline max-lg:text-lg">
           {featured.title}
         </Link>
         <time dateTime={featured.date} className="text-sm leading-5 text-primary">
@@ -132,7 +132,7 @@ function BlogViewMobile({ posts }: { posts: BlogPost[] }) {
       </div>
       <div className="flex flex-col gap-6">
         {rest.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`} className="flex items-start gap-4">
+          <Link key={post.slug} href={`/blogs/detail/${post.slug}`} className="flex items-start gap-4">
             <div className="h-[91px] w-[118px] flex-shrink-0">
               <Thumbnail src={post.thumbnail} className="rounded-[10px]" />
             </div>
