@@ -3,8 +3,8 @@ import { createMetadata } from "@/lib/metadata";
 import { cache } from "react";
 import MainPage from "./main-page";
 
-// Cache listing pages — same window as detail pages, tune via NEXT_BLOG_REVALIDATE_SECONDS
-export const revalidate = Number(process.env.NEXT_BLOG_REVALIDATE_SECONDS) || 86400;
+// Cache listing pages for 24h — adjust this value to tune staleness
+export const revalidate = 86400;
 
 const getCategories = cache(getBlogCategories);
 
@@ -30,7 +30,7 @@ export default async function Page({
   params: Promise<{ category: string; lang: string }>;
 }) {
   const { category } = await params;
-  const [categories, { blogs }] = await Promise.all([
+  const [categories, blogs] = await Promise.all([
     getCategories(),
     getBlogsByCategory({ category, pageSize: 9999 }),
   ]);

@@ -3,8 +3,8 @@ import FooterSection from "@/components/sections/footer-section";
 import LayoutBlogs from "@/components/navs/layout-blogs";
 import { getBlogCategories } from "@/lib/blog-api";
 
-// Nav categories are static data — cache window tunable via NEXT_BLOG_REVALIDATE_SECONDS
-export const revalidate = Number(process.env.NEXT_BLOG_REVALIDATE_SECONDS) || 86400;
+// Nav categories are static data — cache for 24h
+export const revalidate = 86400;
 
 export default async function Layout({
   children,

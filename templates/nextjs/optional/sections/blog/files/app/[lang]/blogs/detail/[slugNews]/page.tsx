@@ -7,7 +7,7 @@ import Navbar from "@/components/navs/navbar";
 import FooterSection from "@/components/sections/footer-section";
 
 // Cache this page's HTML — serve stale + regenerate in background after expiry
-export const revalidate = Number(process.env.NEXT_BLOG_REVALIDATE_SECONDS) || 86400;
+export const revalidate = 86400;
 
 // Pre-render top 20 blog detail pages at build time; remaining slugs render on first visit then get cached
 export async function generateStaticParams() {

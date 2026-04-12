@@ -167,7 +167,6 @@ Adds:
   hooks/use-blogs.ts
   Env vars:
     NEXT_PUBLIC_BLOG_API             (optional — falls back to built-in mock data)
-    NEXT_BLOG_REVALIDATE_SECONDS  (ISR cache window in seconds, default: 86400)
 ```
 
 Blog pages use **Incremental Static Regeneration (ISR)**. The top 20 blog detail pages are pre-rendered at build time via `generateStaticParams`; remaining slugs render on first visit and are then cached. All pages (detail, listing, layout) share the same `NEXT_BLOG_REVALIDATE_SECONDS` TTL and serve stale content while regenerating in the background after expiry.
@@ -257,7 +256,6 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
 # Blog API (optional — falls back to mock data if not set)
 NEXT_PUBLIC_BLOG_API=https://api.yourdomain.com         # Base URL, expects GET /posts, GET /posts/:slug
-NEXT_BLOG_REVALIDATE_SECONDS=86400                   # ISR cache TTL for blog pages (default: 24h)
 
 # Storage (optional)
 NEXT_PUBLIC_S3_DOMAIN=https://cdn.yourdomain.com

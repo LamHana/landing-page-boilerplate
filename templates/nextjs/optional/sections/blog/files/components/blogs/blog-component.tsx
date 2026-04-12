@@ -13,12 +13,21 @@ async function fetchBlogs(category: string): Promise<Blog[]> {
   return data.blogs;
 }
 
-export default function BlogComponent({ category, categories = [] }: { category: string; categories?: BlogCategory[] }) {
+export default function BlogComponent({
+  category,
+  categories = [],
+  blogs: initialBlogs,
+}: {
+  category: string;
+  categories?: BlogCategory[];
+  blogs?: Blog[];
+}) {
   const isMobile = useIsMobile();
 
   const { data, isError, isPending } = useQuery<Blog[]>({
     queryKey: ["/blogs/list-all", { category }],
     queryFn: () => fetchBlogs(category),
+    initialData: initialBlogs,
     retry: 0,
     refetchOnWindowFocus: false,
   });
