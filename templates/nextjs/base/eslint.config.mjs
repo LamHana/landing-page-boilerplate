@@ -1,16 +1,12 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import nextConfig from "eslint-config-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({ baseDirectory: __dirname });
+// Extract @typescript-eslint plugin already loaded by nextConfig (avoids duplicate import)
+const tsPlugin = nextConfig.find((c) => c.plugins?.["@typescript-eslint"])?.plugins["@typescript-eslint"];
 
 const eslintConfig = [
-  { ignores: [".next/**", "node_modules/**"] },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextConfig,
   {
+    ...(tsPlugin && { plugins: { "@typescript-eslint": tsPlugin } }),
     rules: {
       // Enforce no unused variables — common source of tech debt
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],

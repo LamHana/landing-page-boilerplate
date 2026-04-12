@@ -1,6 +1,10 @@
+import path from "path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Pin workspace root to this project dir — prevents Next.js from
+  // traversing up into a parent monorepo and breaking Turbopack font resolution
+  outputFileTracingRoot: path.resolve(__dirname),
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },

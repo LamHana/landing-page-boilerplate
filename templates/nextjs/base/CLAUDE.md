@@ -110,7 +110,8 @@ npm run build-and-scan  # Docker build + Trivy vulnerability scan
 NEXT_PUBLIC_SITE_URL=https://yourdomain.com   # Required — used in metadata & sitemap
 NEXT_PUBLIC_GTM_ID=                           # Google Tag Manager (analytics module)
 NEXT_PUBLIC_GA_ID=                            # Google Analytics (analytics module)
-BLOG_API_URL=                                 # External blog API base URL (blog module)
+NEXT_PUBLIC_BLOG_API=                         # External blog API base URL (blog module)
+BLOG_API_APPLICATION=ndachain                # Application filter required by the blog API
 NEXT_PUBLIC_S3_DOMAIN=                        # CDN domain for media assets
 ```
 

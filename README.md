@@ -41,7 +41,7 @@ The CLI scaffolds your project, merges selected optional modules, and runs insta
 
 | Category | Details |
 |---|---|
-| Framework | Next.js 16.2 (App Router, Turbopack) |
+| Framework | Next.js 16.2 (App Router) |
 | Language | TypeScript 5 (strict) |
 | Styling | Tailwind CSS 4 + CSS variables |
 | UI Components | Radix UI primitives + shadcn/ui pattern |
@@ -158,16 +158,19 @@ Adds:
 
 ```
 Adds:
-  app/[lang]/blogs/          (blog listing page)
-  app/[lang]/blog/[slug]/    (blog detail page)
-  app/api/posts/             (mock posts API, replaced by BLOG_API_URL)
+  app/[lang]/blogs/          (blog listing + detail pages — ISR rendered)
+  app/api/posts/             (mock posts API, replaced by NEXT_PUBLIC_BLOG_API)
   components/blogs/          (post card, post list)
   components/sections/blog-section.tsx
   components/navs/blog-nav.tsx
   lib/blog-api.ts            (fetch wrapper for external or mock API)
   hooks/use-blogs.ts
-  Env var: BLOG_API_URL      (optional — falls back to built-in mock data)
+  Env vars:
+    NEXT_PUBLIC_BLOG_API             (optional — falls back to built-in mock data)
+    NEXT_BLOG_REVALIDATE_SECONDS  (ISR cache window in seconds, default: 86400)
 ```
+
+Blog pages use **Incremental Static Regeneration (ISR)**. The top 20 blog detail pages are pre-rendered at build time via `generateStaticParams`; remaining slugs render on first visit and are then cached. All pages (detail, listing, layout) share the same `NEXT_BLOG_REVALIDATE_SECONDS` TTL and serve stale content while regenerating in the background after expiry.
 
 ### Sections — Contact
 
@@ -253,7 +256,8 @@ NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
 # Blog API (optional — falls back to mock data if not set)
-BLOG_API_URL=https://api.yourdomain.com         # Base URL, expects GET /posts, GET /posts/:slug
+NEXT_PUBLIC_BLOG_API=https://api.yourdomain.com         # Base URL, expects GET /posts, GET /posts/:slug
+NEXT_BLOG_REVALIDATE_SECONDS=86400                   # ISR cache TTL for blog pages (default: 24h)
 
 # Storage (optional)
 NEXT_PUBLIC_S3_DOMAIN=https://cdn.yourdomain.com

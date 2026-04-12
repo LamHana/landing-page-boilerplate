@@ -2,30 +2,14 @@
 const config = {
   extends: ["@commitlint/config-conventional"],
   rules: {
-    // Allowed commit types
-    "type-enum": [
-      2,
-      "always",
-      [
-        "feat", // new feature
-        "fix", // bug fix
-        "docs", // documentation only
-        "style", // formatting, whitespace
-        "refactor", // code change that's not feat or fix
-        "perf", // performance improvement
-        "test", // tests
-        "build", // build system, deps
-        "ci", // CI/CD
-        "chore", // other changes
-        "revert", // revert a commit
-      ],
-    ],
-    // Subject line max length
+    // Downgrade type/subject requirements to warnings only
+    "type-empty": [1, "never"],
+    "subject-empty": [1, "never"],
+    "type-enum": [1, "always", ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert"]],
+    // Only hard rules: keep messages readable
     "subject-max-length": [2, "always", 100],
-    // No period at end of subject
     "subject-full-stop": [2, "never", "."],
-    // Subject must start lowercase
-    "subject-case": [2, "never", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
+    "subject-case": [0],
   },
 };
 

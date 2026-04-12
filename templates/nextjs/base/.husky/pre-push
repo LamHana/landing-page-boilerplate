@@ -28,17 +28,15 @@ else
 fi
 echo ""
 
-# ── Step 3: Docker build + security scan (opt-in with RUN_SCAN=true) ──
-if [ "${RUN_SCAN}" = "true" ]; then
-  if ! command -v docker > /dev/null 2>&1; then
-    echo "${YELLOW}[3/3] Security scan skipped (Docker not found)${NC}"
-  else
-    echo "${GREEN}[3/3] Running Docker build + security scan...${NC}"
-    FAIL_ON_VULN=false bash ./scripts/build-and-scan.sh
-    echo "${GREEN}✅ Scan completed${NC}"
-  fi
+# ── Step 3: Docker build + security scan (always runs, skip with SKIP_SCAN=true) ──
+if [ "${SKIP_SCAN}" = "true" ]; then
+  echo "${YELLOW}[3/3] Security scan skipped (SKIP_SCAN=true)${NC}"
+elif ! command -v docker > /dev/null 2>&1; then
+  echo "${YELLOW}[3/3] Security scan skipped (Docker not found)${NC}"
 else
-  echo "${YELLOW}[3/3] Security scan skipped (set RUN_SCAN=true to enable)${NC}"
+  echo "${GREEN}[3/3] Running Docker build + security scan...${NC}"
+  FAIL_ON_VULN=false bash ./scripts/build-and-scan.sh
+  echo "${GREEN}✅ Scan completed${NC}"
 fi
 
 echo ""
