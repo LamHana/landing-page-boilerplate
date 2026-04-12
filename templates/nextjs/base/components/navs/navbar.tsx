@@ -9,11 +9,14 @@ import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const controlNavbar = () => {
       const currentScrollY = window.scrollY;
+
+      setIsScrolled(currentScrollY > 10);
 
       if (currentScrollY < lastScrollY.current || currentScrollY < 10) {
         setIsVisible(true); // scrolling up OR near top → show
@@ -31,8 +34,12 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm header-shadow transition-transform duration-300",
-        isVisible ? "translate-y-0" : "-translate-y-[calc(100%+20px)]"
+        "fixed top-0 z-50 w-full transition-all duration-700 ease-in-out",
+        isVisible ? "translate-y-0" : "-translate-y-[calc(100%+20px)]",
+        // Transparent at top; apply blur + border when scrolled
+        isScrolled
+          ? "border-b border-border/40 bg-background/80 backdrop-blur-md shadow-sm"
+          : "border-b border-transparent bg-transparent",
       )}
     >
       <div className="content-container flex h-16 items-center justify-between">

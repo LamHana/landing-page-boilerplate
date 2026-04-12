@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/metadata";
 import "./globals.css";
 // __PROVIDERS_IMPORT__
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = createMetadata({
   title: "__PROJECT_NAME__",
