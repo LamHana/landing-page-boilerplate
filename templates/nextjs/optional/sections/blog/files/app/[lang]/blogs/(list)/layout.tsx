@@ -3,6 +3,9 @@ import FooterSection from "@/components/sections/footer-section";
 import LayoutBlogs from "@/components/navs/layout-blogs";
 import { getBlogCategories } from "@/lib/blog-api";
 
+// Nav categories are static data — cache window tunable via NEXT_BLOG_REVALIDATE_SECONDS
+export const revalidate = Number(process.env.NEXT_BLOG_REVALIDATE_SECONDS) || 86400;
+
 export default async function Layout({
   children,
   params,
@@ -13,8 +16,7 @@ export default async function Layout({
   // params.lang available for future i18n label lookup
   await params;
 
-  const rawCategories = await getBlogCategories();
-  const categories = rawCategories.map((c) => ({ slug: c.toLowerCase(), name: c }));
+  const categories = await getBlogCategories();
 
   return (
     <>

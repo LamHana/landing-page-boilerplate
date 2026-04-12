@@ -1,24 +1,24 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useIsMobile } from "@/hooks/use-mobile";
-import type { BlogPost } from "@/lib/blog-api";
+import type { Blog, BlogCategory } from "@/lib/blog-api";
 import BlogViewDesktop from "./blog-view-desktop";
 import { BlogViewMobile } from "./blog-view-mobile";
 
-async function fetchBlogPosts(category: string): Promise<BlogPost[]> {
+async function fetchBlogs(category: string): Promise<Blog[]> {
   const params = new URLSearchParams({ category, pageSize: "9999" });
   const res = await fetch(`/api/blogs?${params}`);
-  if (!res.ok) throw new Error("Failed to fetch posts");
+  if (!res.ok) throw new Error("Failed to fetch blogs");
   const data = await res.json();
-  return data.posts;
+  return data.blogs;
 }
 
-export default function BlogComponent({ category }: { category: string }) {
+export default function BlogComponent({ category, categories = [] }: { category: string; categories?: BlogCategory[] }) {
   const isMobile = useIsMobile();
 
-  const { data, isError, isPending } = useQuery<BlogPost[]>({
+  const { data, isError, isPending } = useQuery<Blog[]>({
     queryKey: ["/blogs/list-all", { category }],
-    queryFn: () => fetchBlogPosts(category),
+    queryFn: () => fetchBlogs(category),
     retry: 0,
     refetchOnWindowFocus: false,
   });
@@ -41,7 +41,7 @@ export default function BlogComponent({ category }: { category: string }) {
   if (isError) {
     return (
       <div className="flex min-h-[500px] items-center justify-center text-center text-muted-foreground">
-        Failed to load posts. Please try again.
+        Failed to load blogs. Please try again.
       </div>
     );
   }
@@ -49,10 +49,10 @@ export default function BlogComponent({ category }: { category: string }) {
   if (!data || data.length === 0) {
     return (
       <div className="flex min-h-[500px] items-center justify-center text-center text-2xl font-bold text-primary">
-        No posts yet
+        No blogs yet
       </div>
     );
   }
 
-  return isMobile ? <BlogViewMobile data={data} /> : <BlogViewDesktop data={data} />;
+  return isMobile ? <BlogViewMobile data={data} categories={categories} /> : <BlogViewDesktop data={data} categories={categories} />;
 }

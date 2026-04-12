@@ -2,13 +2,26 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
-import type { BlogPost } from "@/lib/blog-api";
+import type { Blog, BlogCategory } from "@/lib/blog-api";
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-GB");
 }
 
-export function BlogViewMobile({ data }: { data: BlogPost[] }) {
+function CategoryBadges({ categoryIds, categories }: { categoryIds?: string[]; categories: BlogCategory[] }) {
+  if (!categoryIds?.length) return null;
+  return (
+    <div className="flex flex-wrap gap-1">
+      {categoryIds.map((id) => (
+        <Button key={id} className="h-[22px] w-fit rounded-[4px] bg-primary px-2 text-xs text-primary-foreground hover:bg-primary/80">
+          {categories.find((c) => c.id === id)?.name ?? id}
+        </Button>
+      ))}
+    </div>
+  );
+}
+
+export function BlogViewMobile({ data, categories = [] }: { data: Blog[]; categories?: BlogCategory[] }) {
   const [featured, ...rest] = data;
 
   return (
@@ -19,13 +32,13 @@ export function BlogViewMobile({ data }: { data: BlogPost[] }) {
       transition={{ duration: 1.1 }}
       className="flex flex-col gap-6 pb-20"
     >
-      {/* Featured Post */}
+      {/* Featured Blog */}
       <div className="flex flex-col gap-2">
         <Link href={`/blogs/detail/${featured.slug}`} className="h-[230px] w-full">
           {featured.thumbnail ? (
             <img
               src={featured.thumbnail}
-              alt={featured.title}
+              alt={featured.name}
               loading="eager"
               className="h-full w-full object-cover rounded-[16px]"
             />
@@ -33,30 +46,28 @@ export function BlogViewMobile({ data }: { data: BlogPost[] }) {
             <div className="h-full w-full bg-muted rounded-[16px]" />
           )}
         </Link>
-        <Button className="h-[22px] w-fit rounded-[4px] bg-primary px-2 text-xs text-primary-foreground hover:bg-primary/80">
-          {featured.category}
-        </Button>
+        <CategoryBadges categoryIds={featured.categoryIds} categories={categories} />
         <Link
           href={`/blogs/detail/${featured.slug}`}
           className="text-xl font-semibold leading-[30px] text-primary hover:underline"
         >
-          {featured.title}
+          {featured.name}
         </Link>
-        <time dateTime={featured.date} className="text-sm text-primary">
-          {formatDate(featured.date)}
+        <time dateTime={featured.publishedAt} className="text-sm text-primary">
+          {formatDate(featured.publishedAt)}
         </time>
         <span className="text-sm text-primary">{featured.description}</span>
       </div>
 
-      {/* Rest of posts */}
+      {/* Rest of blogs */}
       <div className="flex flex-col gap-6">
-        {rest.map((post) => (
-          <Link key={post.slug} href={`/blogs/detail/${post.slug}`} className="flex items-start gap-4">
+        {rest.map((blog) => (
+          <Link key={blog.slug} href={`/blogs/detail/${blog.slug}`} className="flex items-start gap-4">
             <div className="h-[91px] w-[118px] flex-shrink-0">
-              {post.thumbnail ? (
+              {blog.thumbnail ? (
                 <img
-                  src={post.thumbnail}
-                  alt={post.title}
+                  src={blog.thumbnail}
+                  alt={blog.name}
                   loading="lazy"
                   className="h-full w-full object-cover rounded-[10px]"
                 />
@@ -65,12 +76,10 @@ export function BlogViewMobile({ data }: { data: BlogPost[] }) {
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <Button className="h-[22px] w-fit rounded-[4px] bg-primary px-2 text-xs text-primary-foreground hover:bg-primary/80">
-                {post.category}
-              </Button>
-              <span className="text-sm font-semibold text-primary hover:underline">{post.title}</span>
-              <time dateTime={post.date} className="text-xs text-primary">
-                {formatDate(post.date)}
+              <CategoryBadges categoryIds={blog.categoryIds} categories={categories} />
+              <span className="text-sm font-semibold text-primary hover:underline">{blog.name}</span>
+              <time dateTime={blog.publishedAt} className="text-xs text-primary">
+                {formatDate(blog.publishedAt)}
               </time>
             </div>
           </Link>

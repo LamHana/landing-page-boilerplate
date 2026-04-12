@@ -1,9 +1,10 @@
-import { getBlogPosts } from "@/lib/blog-api";
+import Link from "next/link";
+import { getBlogs, getBlogCategories } from "@/lib/blog-api";
 import { BlogSectionView } from "./blog-section-view";
 
-// Server component — fetches latest 4 posts at render time (SSR/SSG)
+// Server component — fetches latest 4 blogs at render time (SSR/SSG)
 export default async function BlogSection() {
-  const posts = await getBlogPosts(4);
+  const [blogs, categories] = await Promise.all([getBlogs(4), getBlogCategories()]);
 
   return (
     <section id="blog" className="py-24">
@@ -14,14 +15,14 @@ export default async function BlogSection() {
             Insights, tutorials, and updates from our team.
           </p>
         </div>
-        <BlogSectionView posts={posts} />
+        <BlogSectionView blogs={blogs} categories={categories} />
         <div className="mt-10 text-center">
-          <a
+          <Link
             href="/blogs/all"
             className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
-            View all posts →
-          </a>
+            View all blogs →
+          </Link>
         </div>
       </div>
     </section>
