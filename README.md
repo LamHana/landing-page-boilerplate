@@ -10,28 +10,29 @@ A CLI scaffolding tool that generates production-ready **Next.js 16** landing pa
 npx create-landing-app
 ```
 
-Or with a specific package manager:
+Or:
 
 ```bash
-bunx create-landing-app
 pnpx create-landing-app
 ```
 
-Follow the interactive prompts:
+Answer the interactive prompts:
 
 ```
 ? Project name: my-landing
-? Package manager: bun
-? i18n support: Dictionary-based (EN/VI)
-? State management: Zustand
-? Data fetching: TanStack Query
-? Sections: Blog, Contact, About
-? Analytics: Google Tag Manager
-? Dark mode: Yes
-? Include Docker setup? Yes
+? Include Blog section? Yes
+? Include Contact section? (form + API route) Yes
+? Enable dark mode toggle? Yes
+? Include Analytics? (GTM + GA via env vars) No
 ```
 
-The CLI scaffolds your project, merges selected optional modules, and runs install automatically.
+The following are included automatically (not prompted):
+- **Package manager:** pnpm
+- **i18n:** Dictionary-based (EN/VI)
+- **State management:** Zustand
+- **Data fetching:** TanStack Query
+
+The CLI scaffolds your project, merges selected modules, and runs `pnpm install` automatically.
 
 ---
 
@@ -158,18 +159,23 @@ Adds:
 
 ```
 Adds:
-  app/[lang]/blogs/          (blog listing + detail pages — ISR rendered)
-  app/api/posts/             (mock posts API, replaced by NEXT_PUBLIC_BLOG_API)
-  components/blogs/          (post card, post list)
-  components/sections/blog-section.tsx
-  components/navs/blog-nav.tsx
-  lib/blog-api.ts            (fetch wrapper for external or mock API)
-  hooks/use-blogs.ts
+  app/[lang]/blogs/(list)/[category]/  (category listing — ISR, 24h cache)
+  app/[lang]/blogs/detail/[slugNews]/  (blog detail — ISR, 24h cache)
+  app/api/blogs/route.ts               (mock blog API, replaced by NEXT_PUBLIC_BLOG_API)
+  components/blogs/                    (blog card, desktop/mobile list views)
+  components/sections/blog-section.tsx (home page blog preview section)
+  components/navs/layout-blogs.tsx     (blog layout with category nav)
+  lib/blog-api.ts                      (fetch wrapper — external API or built-in mock)
+  lib/sanitize.ts                      (HTML sanitizer for blog content)
+  styles/prose.css                     (typography styles for blog content)
+  hooks/use-mobile.ts                  (responsive breakpoint hook)
+  Deps: @tanstack/react-query, isomorphic-dompurify, jsdom
   Env vars:
-    NEXT_PUBLIC_BLOG_API             (optional — falls back to built-in mock data)
+    NEXT_PUBLIC_BLOG_API      (optional — falls back to built-in mock data)
+    BLOG_API_APPLICATION      (API application filter, default: ndachain)
 ```
 
-Blog pages use **Incremental Static Regeneration (ISR)**. The top 20 blog detail pages are pre-rendered at build time via `generateStaticParams`; remaining slugs render on first visit and are then cached. All pages (detail, listing, layout) share the same `NEXT_BLOG_REVALIDATE_SECONDS` TTL and serve stale content while regenerating in the background after expiry.
+Blog pages use **Incremental Static Regeneration (ISR)**. The top 20 blog detail pages are pre-rendered at build time via `generateStaticParams`; remaining slugs render on first visit and are then cached. All pages revalidate every 24 hours (`revalidate = 86400`), serving stale content while regenerating in the background.
 
 ### Sections — Contact
 
@@ -255,7 +261,8 @@ NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 
 # Blog API (optional — falls back to mock data if not set)
-NEXT_PUBLIC_BLOG_API=https://api.yourdomain.com         # Base URL, expects GET /posts, GET /posts/:slug
+NEXT_PUBLIC_BLOG_API=https://api.yourdomain.com   # Base URL, expects GET /blogs, GET /blogs/:slug
+BLOG_API_APPLICATION=ndachain                     # Application filter sent with every API request
 
 # Storage (optional)
 NEXT_PUBLIC_S3_DOMAIN=https://cdn.yourdomain.com
