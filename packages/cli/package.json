@@ -1,6 +1,6 @@
 {
   "name": "create-landing-app",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Create a production-ready Next.js landing page with one command",
   "type": "module",
   "bin": {

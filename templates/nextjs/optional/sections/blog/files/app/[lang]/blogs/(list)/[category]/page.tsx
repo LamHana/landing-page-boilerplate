@@ -3,8 +3,10 @@ import { createMetadata } from "@/lib/metadata";
 import { cache } from "react";
 import MainPage from "./main-page";
 
-// Cache listing pages for 24h — adjust this value to tune staleness
-export const revalidate = 86400;
+// ISR: revalidate every 60s — only visited pages regenerate, unvisited stay cached
+// For instant updates on admin publish, use on-demand revalidation: https://nextjs.org/docs/app/building-your-application/data-fetching/incremental-static-regeneration#on-demand-revalidation-with-revalidatepath
+// To disable ISR and always fetch fresh: replace with `export const dynamic = "force-dynamic"`
+export const revalidate = 60;
 
 const getCategories = cache(getBlogCategories);
 
